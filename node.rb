@@ -1,3 +1,5 @@
+
+
 class Node
   attr_accessor :next
   attr_accessor :data

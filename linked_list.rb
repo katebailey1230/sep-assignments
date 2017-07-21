@@ -1,4 +1,23 @@
 require_relative 'node'
+require 'benchmark'
+
+n = 10,000
+
+Benchmark.bm do |x|
+  # joining an array of strings
+  bm.report do
+    x.report("upto:") { 1.upto(n) do ; a = "1"; end }
+      ["The", "current", "time", "is", Time.now].join(" ")
+    end
+ 
+
+  # using string interpolation
+  bm.report do |x|
+    x.report("upto:") { 1.upto(n) do ; a = "1"; end }
+      "The current time is #{Time.now}"
+    end
+end
+
 
 class LinkedList
   attr_accessor :head
