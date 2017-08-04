@@ -12,13 +12,11 @@ class HashClass
       @items[index(key, size)] = HashItem.new(key, value)
     elsif hashed_item.key != key
       while @items[index(key, @size)].key != nil && @items[index(key, size)].key != key
-        resize
-        re_index = index(key, size)
-        break if @items[re_index] == nil
+        self.resize
+        self[key] = value
       end
-      self[key] = value
-    elsif hashed_item.key == key && hashed_item.value != value
-      resize
+     elsif hashed_item.key === key && hashed_item.value != value
+      self.resize
       hashed_item.value = value
     end
   end
@@ -33,26 +31,33 @@ class HashClass
   end
 
   def resize
-    new_size = size * 2
-    expanded_hash = Array.new(new_size)
-    @items.each do |item|
-      if item != nil
-        expanded_hash[index(item.key, size)] = item
-      end
+   old_array = @items
+        @items = Array.new(old_array.length * 2)
+        old_array.each do |pair|
+            unless pair.nil?
+                if @items[index(pair.key, @items.length)].nil?
+                    self[pair.key] = pair.value
+                elsif @items[index(pair.key, @items.length)].key != key
+                    self.resize
+                    self[pair.key] = pair.value
+                elsif @items[index(pair.key, @items.length)].key === key && @items[index(pair.key, @items.length)].value != value
+                    self.resize
+                    @items[index(pair.key, @items.length)].value = pair.value
+                end
+            end
+        end
     end
-    @items = expanded_hash
-  end
 
   # Returns a unique, deterministically reproducible index into an array
   # We are hashing based on strings, let's use the ascii value of each string as
   # a starting point.
   def index(key, size)
-   key.sum % size
+   return key.sum % size
   end
 
   # Simple method to return the number of items in the hash
   def size
-   @items.length
+   return @items.length
   end
 end
 
