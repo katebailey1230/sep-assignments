@@ -1,0 +1,5 @@
+1. How does your data structure allow developers to access and manipulate the data?
+2. If a developer wanted to find a specific element in your data structure, how would you search for it?
+3. What other real-world data can each structure represent?
+
+This data structure is unique in that one class contains another class, so by editing the pixel class, the screen class will be changed. This data structure would be useful for situations in which an element has many attributes, so for example, looking at Facebook, one user would have many posts, so the user would be equivalent to the screen class, and the posts would be equivalent to the pixels class.
