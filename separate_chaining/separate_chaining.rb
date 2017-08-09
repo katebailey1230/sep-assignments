@@ -33,6 +33,7 @@ class SeparateChaining
    elsif @hash[hash_index].size == 5
     self.resize
     self.[]=(key, value)
+    self[key] = value
    else
     @hash[hash_index].add_to_front(key, value)
   end
