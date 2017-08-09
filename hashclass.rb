@@ -11,7 +11,7 @@ class HashClass
     if hashed_item.nil?
       @items[index(key, size)] = HashItem.new(key, value)
     elsif hashed_item.key != key
-      while @items[index(key, @size)].key != nil && @items[index(key, size)].key != key
+      while @items[index(key, size)].key != nil && @items[index(key, size)].key != key
         resize
         re_index = index(key, size)
         break if @items[re_index] == nil
@@ -23,21 +23,20 @@ class HashClass
     end
   end
   
-
+ # my_hash["dog"]
 
   def [](key)
-   item = @items[index(key, size)]
-   if @items[item].key == key 
-    return @items[item].value
+   if @items[index(key, size)] != nil && @items[index(key, size)].key === key
+    return @items[index(key, size)].value
+   end
   end
-  end
-
+   
   def resize
     new_size = size * 2
     expanded_hash = Array.new(new_size)
     @items.each do |item|
       if item != nil
-        expanded_hash[index(item.key, size)] = item
+        expanded_hash[index(item.key, new_size)] = item
       end
     end
     @items = expanded_hash
@@ -56,8 +55,3 @@ class HashClass
   end
 end
 
-private
-
-def index_from_key(key)
- return key.sum % @items.length
-end
