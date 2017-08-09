@@ -1,6 +1,0 @@
-1. Explain why doubling the size of the underlying array of your HashClass may be a poor idea.
- Hints:
-  Doubling the size of the area increased the number of open slots in the array for potential values which may lead to more fragmentation.
-  Doubling the size of an array (allocating memory) is a slow operation.
-  
-  1. Simply doubling the size of the array will not guarantee that each collision has been rectified, or rather that each key with the same hash code will have different slots for their matching codes. Because you've doubled the size, you'll have a large amount of slots that won't be used, which leads to more fragmentation. The ideal scenario would be to increase the size by prime numbers so that the spacing is random and it's less likely that another collision would occur, as well as reducing the amount of fragmented space in the array.
