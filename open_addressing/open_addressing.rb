@@ -12,13 +12,13 @@ class OpenAddressing
    next_index = next_open_index(index)
    new_node = Node.new(key, value)
    
-   if @nodes[index].nil?
+   if @nodes[index] == nil
     @nodes[index] = new_node
    elsif next_index != -1
     @nodes[next_index] = new_node
-   elsif next_index == -1
-    re_index = index(key, size)
-    @nodes[re_index].value = value
+   elsif next_index == -1 
+    self.resize
+    self.[]=(key, value)
    end
   end
 
@@ -76,6 +76,6 @@ class OpenAddressing
         expanded_hash[index(node.key, new_size)] = node
       end
     end
-    @nodes = expanded_hash
+   @nodes = expanded_hash
   end
 end
