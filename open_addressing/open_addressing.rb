@@ -5,22 +5,36 @@ class OpenAddressing
  
   def initialize(size)
    @nodes = Array.new(size)
+   @node_count = 0.0
   end
 
   def []=(key, value)
-   index = self.index(key, @nodes.size)
-   next_index = next_open_index(index)
-   new_node = Node.new(key, value)
-   
-   if @nodes[index] == nil
-    @nodes[index] = new_node
-   elsif next_index != -1
-    @nodes[next_index] = new_node
-   elsif next_index == -1 
-    self.resize
-    self.[]=(key, value)
-   end
-  end
+    index = self.index(key, @nodes.length)
+    if @nodes[index].nil?
+       @nodes[index] = Node.new(key, value)
+       @node_count += 1
+    elsif @nodes[index].key === key
+       if @nodes[index].value != value
+          @nodes[index].value = value
+       if self.next_open_index(0) === -1 
+           self.resize
+       end
+    end
+      else
+       index = self.next_open_index(index)
+          if index === -1
+              self.resize
+              self.[]=(key, value)
+              @node_count += 1
+          elsif @nodes[index].nil?
+              @nodes[index] = Node.new(key, value)
+              @node_count += 1
+          elsif @nodes[index].key === key && @nodes[index].value != value
+                @nodes[index].value = value
+          end
+    end     
+end
+
 
   def [](key)
    index = index(key, @nodes.size)
