@@ -92,4 +92,25 @@ end
     end
    @nodes = expanded_hash
   end
+	
+ def load_factor
+	 @node_count = 0.0
+	 load_factor = 0.0
+	 
+	 @nodes.each do |node|
+		 if node != nil
+			 @node_count += 1
+		 end
+	 if @node_count > 0
+		 load_factor = !node_count / @nodes.size
+	 end
+	 load_factor
+ end
+	
+	
+	 def print
+		 puts "The load factor is #{self.load_factor}."
+		 puts "The location of #{self.value} is #{self.index(self.key, self.length)}."
+	 end
+end
 end

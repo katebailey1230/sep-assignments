@@ -92,4 +92,8 @@ class SeparateChaining
     end
   end
   end
+	
+	def print
+		 puts "The load factor is #{self.load_factor}."
+		 puts "The location of #{self.value} is #{self.index(self.key, self.length)}."
 end
