@@ -56,11 +56,26 @@ class BinarySearchTree
 end
 
   def delete(root, data)
-  
-   #must use parent and child because if you delete parent, child must become parent, etc.
-   
+	 if root.nil? || data.nil?
+		 return nil
+	 else
+		 target_node = find(root, data)
+		 target_node.nil? ? nil : target_node.title = nil
+	 end
   end
+   
 
   # Recursive Breadth First Search
   def printf(children=nil)
+	  tree = [root]
+	  tree.each do |node|
+		  tree << node.left if node.left
+		  tree << node.right if node.right
+		  node.left << node.children.left if node.children.left
+		  node.left << node.children.right if node.children.right
+		  node.right << node.children.left if node.children.left
+		  node.right << node.children.right if node.children.right
+	  end
+	  puts tree.inspect 
   end
+  
