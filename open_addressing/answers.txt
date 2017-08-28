@@ -5,5 +5,4 @@
 
 
 2. Create your own collision resolution strategy and describe how it works.
-
-	Am unable to come up with a collision resolution strategy on my own -- maybe we could do one together on Friday?
+   I would create a strategy similar to 2-Choice Hashing, but one of the hash functions would determine placement of object by size of object, either in ascending or descending order.

@@ -67,7 +67,7 @@ class SeparateChaining
     self.resize
     self.load_factor
    else
-    @max_load_factor
+   return @max_load_factor
   end
   end
 
@@ -76,6 +76,16 @@ class SeparateChaining
    return @nodes.length
   end
 
+  def print
+    (0...size()).each do |i|
+      if @nodes[i]
+        puts "index: #{i}"
+        self.print
+      end
+    end
+    puts "load factor: #{load_factor()}"
+  end
+    
   # Resize the hash
   def resize
     old_array = @nodes
@@ -92,8 +102,5 @@ class SeparateChaining
     end
   end
   end
-	
-	def print
-		 puts "The load factor is #{self.load_factor}."
-		 puts "The location of #{self.value} is #{self.index(self.key, self.length)}."
 end
+
