@@ -1,84 +1,59 @@
 require_relative 'node'
 
 class MinBinaryHeapr
-  attr_reader :elements
+  attr_accessor :elements
   
-  def initialize(root)
-  @root = root
+  def initialize(root, node=nil)
+    @root = root
+    node ? @elements = [root, node] : @elements = [root]
   end
-  
-  def insert(node) 
-   while @elements != nil 
-     @elements << node
-    sift_up(@elements.length - 1)
-     @elements
-   end
-  end
-  
-  def order(i)
-  @elements[(2i + 1)] = child.left  
-  @elements[(2i + 2)] = child.right
-  @elements[(child.right/2)] = parent
+
+  def swap(i, j)
+  @elements[i], @elements[j] = @elements[j], @elements[i]
 end
   
   def sift_up(i)
-    if parent >= 0 and @elements[parent] > @elements[i]
-      swap(parent, i)
-      sift_up(parent)
-    end
+  
+while @elements[i] != nil    
+  if ((i + 1) >= 0) && @elements[i + 1] > @elements[i]
+    swap((i + 1), i)
+    sift_up(i + 1)
+  end
 end
+  end
   
-  
-  
-  def find(node, data)
-    if node.title.nil? || data.nil?
-	   return nil
+  def insert(root, node)
+      @elements = []
+      @elements << root
+      @elements << node
+      self.sift_up(@elements.length - 1)
+      @elements
     end
   end
- 
-    while @elements != nil && data != nil
-      @elements.each do |node|
+
+
+  def find(node, data)
+    while !@elements.nil? && !data.nil?
+    @elements.each do |node|
       index += 1
       break if node.title == data
-        return @elements[i].title
+      return @elements[i].title
     end
-    return nil
   end
-end
-
-
-
-  
-  def delete(node, data)
-     if data.nil?
-		return nil
-     end
     
-    self.delete(self.find(node, data))
-      node.title = nil
-      node.rating = nil
-  end
+def delete(node, data)
+  return nil if data.nil?
 
-    
-     
-  def print
-    @elements.each {|element| puts element}
-	@elements.push("#{node.title}: #{node.rating}").join "/n"
-  end
-
-
-
-def swap(i, j)
-  @elements[i], @elements[j] = @elements[j], @elements[i]
+  self.find(node, data)
+if node.title == data
+  node.title = nil
+  node.rating = nil
 end
- 
-
-def sift_up(i)
-    if parent >= 0 and @elements[parent] > @elements[i]
-      swap(parent, i)
-      sift_up(parent)
-    end
 end
-  
-  
+
+def print
+  @elements.each { |element| puts element }
+  @elements.push("#{node.title}: #{node.rating}").join '/n'
+end
+end
   
