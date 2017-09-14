@@ -1,5 +1,7 @@
 require_relative 'node'
 
+
+
 class Graph
   attr_accessor :film_actor_hash
   
@@ -7,6 +9,16 @@ class Graph
     @result = Array.new
   end
 
+  def set_films(movie)
+    @film_actor_hash = Hash.new
+    movie.each do |key, value|
+      value.each do |node|
+        if node.name == name
+          @film_actor_hash[key] = value
+          @film_actor_hash[key] -=node
+        end
+      end
+    end
  
   def find_kevin_bacon(node)
     node_array = []
@@ -15,12 +27,10 @@ class Graph
       actors.each do |actor|
         if actor.name === "Kevin Bacon"
           node_array.push(movie)
-          puts movie
           return node_array
         end
       end
       actors.each do |actor|
-        puts actor.name
         if !@result.include?(actor)
           temp = find_kevin_bacon(actor)
             if !temp.empty?
@@ -31,12 +41,12 @@ class Graph
       end
     end
     return node_array
+    
+   
 
-
-def reset(hash)
-  hash.each do |movie, actors|
-    actors.each do |actor|
-      actor.visit = false
+def reset(node)
+  if node != nil
+    @result.clear
     end
   end
 end
