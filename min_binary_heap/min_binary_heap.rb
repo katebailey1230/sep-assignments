@@ -1,61 +1,125 @@
 require_relative 'node'
 
 class MinBinaryHeap
-  
+
+attr_accessor :root
+
   def initialize(root)
    @root = root
   end
 
-  def insert(root, node) 
-   @elements = Array.new
-    
-   while @elements != nil 
-    @elements << node
-    if node.rating > root.rating
-       @elements
-    elsif node.rating < root.rating
-      swap(root, node)
-      @elements
+  def insert(root, node)
+    children = [root]
+    next_row = []
+    children.each do |child|
+      if child.right == nil
+        child.right = node
+        child = node.parent
+        placed = node
+      elsif child.left == nil
+        child.left = node
+        child = node.parent
+        placed = node
+      else
+        next_row << child.left
+        next_row << child.right
+      end
+      if placed != nil
+        self.order(placed)
+      else
+      self.insert(next_row, node)
     end
+
+  def order(node)
+  if node != root
+    if node.rating < node.parent.rating
+      m = node.parent.parent if node.parent.parent != nil
+      f = node.parent
+      g = node.left
+      h = node.right
+
+      if g.left = node
+        t = node.parent.right
+      else
+        t = node.parent.left
+      end
+
+      f.parent = node
+      g.parent = node if g != nil
+      h.parent = node if h != nil
+
+      if m != nil && m.right == f
+        m.right = node
+      end
+      if m != nil && m.left == f
+        m.left = node
+      end
+      if m == nil
+        @root = node
+      end
+      node.parent = m
+end
+  self.order(node)
   end
   end
-  
-  def find(node, data)
-    if node.title === nil? || data.nil?
+  end
+
+
+  def find(node, target)
+    if node === nil?
 	   return nil
+   elsif node.title = target
+     return node
+   else
+     x = find(node.right, target)
+     y = find(node.left, target)
+     if x != nil
+       return x
+       if y != nil
+         return y
+       else
+         return nil
     end
- 
-    while @elements != nil && data != nil
-    @elements.each do |node|
-      index += 1
-      break if node.title == data
-    end
-     @elements[i].title
-    end
-    nil
-  end
+end
 end
 
-  
-  def delete(node, data)
+
+  def delete(root, data)
      if data.nil?
 		return nil
 	  else
-		 node = self.find(node, data)
-		  if node.nil?
+		 target = find(node, data)
+		  if target.nil?
 			  return nil
 		  else
-			  node.title = nil
-			  node.rating = nil
+			  target.title = nil
+			  target.rating = nil
 		  end
 	  end
   end
- 
-  
-  def print
-    @elements.each {|element| puts element}
-	@elements.push("#{node.title}: #{node.rating}").join "/n"
+
+
+  def printf(children=nil)
+    if children == nil
+      if @root
+        children = [@root]
+      else
+        return nil
+      end
+    end
+    next_row = []
+    children.each do |child|
+      puts "#{child.title}: #{child.rating}"
+      next_row.push(child.left) if child.left != nil
+      next_row.push(child.right) if child.right != nil
+    end
+    if next_row.size == 0
+      return nil
+    else
+      printf(next_row)
+    end
   end
+end
 
 private
 
@@ -63,17 +127,16 @@ def swap(i, j)
   @elements[i], @elements[j] = @elements[j], @elements[i]
 end
 
-#def child.left 
+#def child.left
   #@elements[(2i + 1)]
 #end
 
-#def child.right 
+#def child.right
   #@elements[(2i + 2)]
 #end
-  
-#def parent 
+
+#def parent
   #@elements[(child.right/2)]
-#end  
-  
-  
-  
+#end
+end
+end

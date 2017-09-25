@@ -1,59 +1,71 @@
 require_relative 'node'
 
 class MinBinaryHeapr
-  attr_accessor :elements
-  
-  def initialize(root, node=nil)
-    @root = root
-    node ? @elements = [root, node] : @elements = [root]
+  attr_reader :elements
+
+  def initialize(node=nil)
+  node ? @elements = [node] : @elements = []
+  @size = @elements.length
   end
 
   def swap(i, j)
-  @elements[i], @elements[j] = @elements[j], @elements[i]
+    @elements[i], @elements[j] = @elements[j], @elements[i]
 end
-  
-  def sift_up(i)
-  
-while @elements[i] != nil    
-  if ((i + 1) >= 0) && @elements[i + 1] > @elements[i]
-    swap((i + 1), i)
-    sift_up(i + 1)
+
+def insert(root, node)
+  if @elements
+  @size += 1
+  @elements[@size - 1] = node
+  order(@elements.length - 1)
   end
 end
+
+def parent(node_index)
+  (node_index / 2).round - 1
+end
+
+def order(node_index)
+  return if node_index == 0
+
+  parent_index = parent(node_index)
+
+  if @elements[node_index].rating < @elements[parent_index].rating
+    swap(node_index, parent_index)
+    order(parent_index)
   end
-  
-  def insert(root, node)
-      @elements = []
-      @elements << root
-      @elements << node
-      self.sift_up(@elements.length - 1)
-      @elements
+end
+
+
+
+def find(root, data)
+  root = nil
+
+  @elements.each do |element|
+    if element.title == data
+      root = element
+      break
     end
   end
+  root
+end
 
-
-  def find(node, data)
-    while !@elements.nil? && !data.nil?
-    @elements.each do |node|
-      index += 1
-      break if node.title == data
-      return @elements[i].title
+def delete(root, data)
+  if data.nil?
+  return nil
+  else
+   node = self.find(root, data)
+    if node.nil?
+      return nil
+    else
+      root.title = nil
+      root.rating = nil
     end
   end
-    
-def delete(node, data)
-  return nil if data.nil?
-
-  self.find(node, data)
-if node.title == data
-  node.title = nil
-  node.rating = nil
-end
 end
 
-def print
-  @elements.each { |element| puts element }
-  @elements.push("#{node.title}: #{node.rating}").join '/n'
+  def print
+    str = ""
+    @elements.each { |element| str << "{element.title}: {element.rating}\n"}
+    puts str
 end
 end
-  
