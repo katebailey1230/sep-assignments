@@ -10,31 +10,27 @@ class Graph
   attr_accessor :node
 
   def initialize
-    @resuls = []
 end
 
-def find_kevin_bacon (node)
-  node_array = []
-	@result.push(kevin_bacon)
-	node.film_actor_hash.each do |movie, actors|
-		actors.each do |actor|
-if actor.name === "Kevin Bacon"
-	  node_array.push(movie)
-	   puts movie
-return node_array
-  end
-end
-
-actors.each do |actor|
-puts actor.name
-if !@result.include?(actor)
-  temp = find_kevin_bacon(actor)
-if !temp.empty?
-  node_array.push(movie)
+def find_kevin_bacon(start)
+    node_array = []
+    node_array.push(start)
+    while(node_array.size != 0)
+      node = node_array.shift
+    node.film_actor_hash.each do |movie, actors|
+      if !start.path.include?(movie)
+        start.path.push(movie)
+      end
+      actors.each do |actor|
+        if actor.name != "Kevin Bacon" && !node_array.include?(actor)
+          node_array.push(actor)
+        end
+        if actor.name === "Kevin Bacon"
+          return start.path
+        end
+      end
     end
   end
-end
-return node_array
 end
 
 
@@ -44,6 +40,5 @@ def reset(hash)
     actors.each do |actor|
     end
   end
-end
 end
 end

@@ -1,7 +1,7 @@
 require_relative 'graph'
 require_relative 'node'
 
-graph = Graph.new
+graph = Graph.new()
 
 kevin_bacon = Node.new('Kevin Bacon')
 john_lithgow = Node.new('John Lithgow')
@@ -36,5 +36,3 @@ film_hash['Before Night Falls'] = [sean_penn, johnny_depp]
 film_hash['Mystic River'] = [tim_robbins, kevin_bacon, sean_penn]
 
 puts graph.find_kevin_bacon(tim_robbins).to_s
-graph.reset(film_hash)
-puts graph.find_kevin_bacon(johnny_depp).to_s
