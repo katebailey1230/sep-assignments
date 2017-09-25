@@ -1,51 +1,57 @@
 require 'benchmark'
 require_relative 'binary_tree/binary_search_tree.rb'
 require_relative 'binary_tree/node.rb'
+require_relative 'min_binary_heapr/min_binary_heapr.rb'
 
+bench_node = Node.new("one", 1)
 
 Benchmark.bm do |x|
-  heap = AHeap.new
+  mbh = MinBinaryHeapr.new
   x.report("Heap Insertion") do
     10000.times do |y|
-      heap.insert(HeapNode.new)
+      mbh.insert(bench_node)
     end
   end
+end
 
+Benchmark.bm do |x|
   bst = BinarySearchTree.new
   x.report("BST Insertion") do
     10000.times do |y|
-      bst.insert(BSTNode.new)
+      bst.insert(bench_node)
   end
+end
 end
 
 Benchmark.bm do |x|
-  heap = AHeap.new
+  mbh = MinBinaryHeapr.new
   x.report("Heap Deletion") do
     100.times do |y|
-      heap.delete(HeapNode)
+      mbh.delete(bench_node)
   end
 end
-  # set up a bst
-
+  end#end set up a bst
+Benchmark.bm do |x|
   bst = BinarySearchTree.new
   x.report("BST Deletion") do
     100.times do |y|
-      bst.delete(BSTNode)
+      bst.delete(bench_node)
   end
 end
-
+end
 Benchmark.bm do |x|
-  heap = AHeap.new
+  mbh = MinBinaryHeapr.new
   x.report("Heap Find") do
     100.times do |y|
-      heap.find(node, "5000")
+      mbh.find(bench_node, "5000")
   end
 end
-  # set up a bst
-
+end  # set up a bst
+Benchmark.bm do |x|
   bst = BinarySearchTree.new
   x.report("BST Find") do
     100.times do |y|
-      bst.find(node, "5000")
+      bst.find(bench_node, "5000")
   end
+end
 end

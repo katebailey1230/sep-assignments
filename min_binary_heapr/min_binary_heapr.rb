@@ -49,23 +49,36 @@ def find(root, data)
   root
 end
 
+def find_index(data)
+  index = 0
+
+  @elements.each do |element|
+    break if element.title == data
+    index += 1
+  end
+  index
+end
+
 def delete(root, data)
   if data.nil?
-  return nil
+    return nil
   else
-   node = self.find(root, data)
+    node = self.find(root, data)
     if node.nil?
       return nil
     else
-      root.title = nil
-      root.rating = nil
-    end
-  end
+    index = find_index(data)
+    swap(@size - 1, index)
+    (@elements.delete_at(@size - 1))
+    @size -= 1
 end
+  end
+
 
   def print
     str = ""
-    @elements.each { |element| str << "{element.title}: {element.rating}\n"}
+    @elements.each { |element| str << "#{element.title}: #{element.rating}\n"}
     puts str
+end
 end
 end

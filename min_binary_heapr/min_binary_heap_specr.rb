@@ -65,17 +65,17 @@ end
   describe "#print" do
      specify {
        expected_output = "Pacific Rim: 72\nBraveheart: 78\nStar Wars: Return of the Jedi: 80\nThe Matrix: 87\nDistrict 9: 90\nStar Wars: The Empire Strikes Back: 94\nInception: 86\nStar Wars: A New Hope: 93\nThe Shawshank Redemption: 91\nThe Martian: 92\nMad Max 2: The Road Warrior: 98\n"
-       tree.insert(root, hope)
-       tree.insert(root, empire)
-       tree.insert(root, jedi)
-       tree.insert(root, martian)
        tree.insert(root, pacific_rim)
-       tree.insert(root, inception)
        tree.insert(root, braveheart)
-       tree.insert(root, shawshank)
+       tree.insert(root, jedi)
+       tree.insert(root, )
        tree.insert(root, district)
+       tree.insert(root, empire)
+       tree.insert(root, inception)
+       tree.insert(root, hope)
+       tree.insert(root, shawshank)
        tree.insert(root, mad_max_2)
-       expect { require_relative 'min_binary_heapr' }.to output(expected_output).to_stdout
+       expect { tree.print }.to output(expected_output).to_stdout
        }
   end
 end
