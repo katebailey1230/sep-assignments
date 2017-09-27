@@ -4,8 +4,8 @@ require_relative 'min_binary_heapr'
 
 
 RSpec.describe MinBinaryHeapr, type: Class do
-  let (:root) { Node.new("The Matrix", 87) }
-
+  let (:matrix) { Node.new("The Matrix", 87) }
+  
   let (:tree) { MinBinaryHeapr.new(root) }
   let (:pacific_rim) { Node.new("Pacific Rim", 72) }
   let (:braveheart) { Node.new("Braveheart", 78) }
@@ -68,7 +68,7 @@ end
        tree.insert(root, pacific_rim)
        tree.insert(root, braveheart)
        tree.insert(root, jedi)
-       tree.insert(root, )
+       tree.insert(root, matrix)
        tree.insert(root, district)
        tree.insert(root, empire)
        tree.insert(root, inception)
