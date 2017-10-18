@@ -19,4 +19,3 @@ class InsertionSort
     end
     sorted_collection
   end
-      

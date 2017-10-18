@@ -1,0 +1,30 @@
+1. Describe an analogy for relating an algorithm that has efficiency O(1) and another algorithm that has O(2n).
+A: An algorithm with efficiency O(1) is like the speed of an airplane versus an algorithm with efficiency O(2^n) which would have the speed of a small car.
+
+2. In plain English, what is the best case scenario for binary search?
+A: The best case scenario for binary search would be O(1), which means under optimal conditions, the best-case scenario would be the fastest an algorithm can operate.
+
+3. In plain English, what is the worst-case scenario for binary search?
+A: Binary search has the worst-case complexity of O(logn), which means under worst conditions, it will take a much slower time to execute.
+
+4.In plain English, what is the bounded-case scenario for binary search?
+A: Binary search's bound-case scenario complexity would be O(logn), as bound-case means conditions that fall between fastest and slowest.
+
+5. Graph
+
+6. What is the limit of the function above as n approaches infinity?
+A: The limit of this function would also be infinity.
+
+7.What is the Big-O of an algorithm that has the data points above?
+A: Big-O would be O(n).
+
+8.Write a Ruby method that takes a number n. This method must print the worst-case number of iterations for linear search to find an item in collections of size one to n. Use it to generate a table of worst-case iterations of collections up to size 10.
+A: def linear(array)
+    array.each do |n|
+      puts n
+    end
+    end
+
+9. Graph
+
+10 - 12 --- see 1-3    
