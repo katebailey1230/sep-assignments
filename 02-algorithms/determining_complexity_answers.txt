@@ -1,0 +1,12 @@
+1-6. What's the Big-O of the following algorithm? Submit your work and reasoning with your solution.
+1A: "Hello World", or "goodbye world" will always take the same time to execute. So its Big-O will end up being O(1).
+
+2A: The Big-O for find_largest would be O(n) because the amount of time will increase linearly depending on the size of the collection.
+
+3A: The Big-O for find_largest_2D_array would be O(n) because the amount of time will increase linearly depending on the size of the collection, despite there being two collection sizes.
+
+4A: The Big-O for numbers_recursive would be O(2^n) because there are two recursive layers, and the time will increase exponentially depending on the size of n.
+
+5A: The Big-O for numbers_iterative would be O(1) because the amount of time run is exactly the same unless n=0.
+
+6A: The Big-O for sort.rb would be O(n logn) because of its similarity to the merge sort algorithm which is also O(n logn).

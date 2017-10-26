@@ -1,0 +1,8 @@
+1. Describe three collision resolution strategies not mentioned here.
+  1. Robin Hood Hashing - similar to double-hashing collision except that a new key can replace an existing one        depending on the probe length.
+  2. 2-Choice Hashing - two different hash functions create two different hash tables. The functions determine    	placement of an object depending on the size of each table.
+  3. Coalesced Hashing - links together chains of nodes within the table, itself.
+
+
+2. Create your own collision resolution strategy and describe how it works.
+   I would create a strategy similar to 2-Choice Hashing, but one of the hash functions would determine placement of object by size of object, either in ascending or descending order.
