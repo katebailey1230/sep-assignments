@@ -1,0 +1,41 @@
+1. List the commands for adding, updating, and deleting data.
+A. 	Adding: INSERT INTO
+	Updating: UPDATE .... SET
+	Deleting: DELETE FROM
+	
+2. Explain the structure for each type of command.
+A.  INSERT INTO table VALUES ( );
+	UPDATE table SET value characteristic WHERE identification of value
+	DELETE FROM table WHERE value characteristics
+	
+3. What are some the data types that can be used in tables? Give a real world example of each.
+A. 'numeric' and 'money' are both user-specified variables that don't have as many limitations as other number data types. 		Examples could be '5.01' for either numberic or money.
+	Other data types include 'timetz' which is a time with time zone changes, as well as 'timestamptz' which is both date and time of day and does include time zone change.
+	
+4. Think through how to create a new table to hold a list of people invited to a wedding. This table needs to have first and 	last name, whether they sent in their RSVP, the number of guests they are bringing, and the number of meals (1 for adults      and 1/2 for children).
+
+	a. Which data type would you use to store each of the following pieces of information?
+		First and last name. ----A: TEXT
+		Whether they sent in their RSVP. ------A: BOOLEAN
+		Number of guests. ------A: NUMERIC
+		Number of meals. ------A: INTEGER
+		
+	b. Write a command that makes the table to track the wedding.
+		CREATE TABLE wedding (
+		name text,
+		rsvp boolean,
+		guests integer,
+		meals integer
+		);
+		
+	c. Using the table we just created, write a command that adds a column to track whether they were sent a thank you card.
+		ALTER TABLE wedding ADD COLUMN thank_you boolean;
+		
+	d. You have decided to move the data about the meals to another table, so write a command to remove the column storing the number meals from the wedding table.
+		ALTER TABLE wedding DROP COLUMN meals;
+		
+	e. The guests are going to need a place to sit at the reception, so write a statement that adds a column for table number.
+		ALTER TABLE wedding ADD COLUMN table integer;
+		
+	f. The wedding is over and we do not need to keep this information, so write a command that deletes the wedding table from the database.
+		DROP TABLE wedding
