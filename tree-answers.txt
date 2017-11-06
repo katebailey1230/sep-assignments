@@ -1,0 +1,22 @@
+Calculated by benchmark2.rb
+
+user                            system      total        real
+Binary Search Tree Insertion:  8.390000    8.410000 (  8.417001)
+Min Binary Heap Insertion:     0.010000    0.010000 (  0.014571)
+Binary Search Tree find 5000:  0.010000    0.010000 (  0.004486)
+Min Binary Heap find 5000:     0.000000    0.000000 (  0.000782)
+Binary Search Tree delete 5000:0.000000    0.000000 (  0.003456)
+Min Binary Heap delete 5000:   0.000000    0.000000 (  0.001239)
+
+
+1. How much time does an average insertion consume in the Binary Search Tree compared to the Heap?
+  The average insertion time for bst is absurdly large compared to that of mbh.
+
+2. How much time does finding 50000 in the Binary Search Tree consume compared to the Heap?
+  It looks like the mbh is slightly faster at finding "5000" than bst.
+3. How much time does the average deletion consume in a Binary Search Tree compared to the Heap?
+  The average delete time for bst was 3 times as much as mbh.
+4. When would you use a Binary Search Tree and why?
+  You'd want to use a BST with a larger data set coming in random order.
+5. When would you use an Heap and why?
+  You'd want to use a Heap in cases with smaller data sets that have a smaller range of differences.
