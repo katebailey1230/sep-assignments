@@ -104,7 +104,7 @@
 	SELECT * FROM cats ORDER BY intake date;
 	
 	-Given an adoptions table with the columns id, date, adopter, cat, and fee, determine the 5 most recent adoptions to be featured as “Happy Tails” on social media.
-	SELECT id, date, adopter, cat, fee FROM cats ORDER BY intake_date DESC;
+	SELECT id, date, adopter, cat, fee FROM cats ORDER BY intake_date DESC LIMIT 5;
 	
 	-There is a potential adopter looking for an adult female cat. In the most efficient way possible, from the Cats table, list all female cats 2 or more years old.
 	SELECT * FROM cats WHERE gender = 'F' and age >= 2;
