@@ -1,0 +1,14 @@
+1. The first loop of the arrays gives us a time of n, but then each nested loop
+  gives n^2. In this case, n + n^2 gives us O(n^2).
+
+2. The second is a merge sort case, which uses recursive calls. A collection
+    with size n makes 2 recursive calls, so after merge sort, you have
+    two collections of n/2. The recursive calls continue until the collection
+    size, n, is broken down into n collections of one. Graphing a merge sort
+    with n elements and number of operations, the graph is logarithmic. So merge
+    sort's time gives us O(n log n).
+
+3.  While the third, selection sort, may not have a good time when it comes to
+  large sets of data, it uses less memory. Using a collection of size n, the number
+  of iterations used would be (n + 1)(n / 2). Multiplying that out gives you
+  the time of O(n^2).
