@@ -1,0 +1,114 @@
+1. How do you find data that is held in two separate data tables?
+A: You can combine the tables using the JOIN clause as well as a table's primary key.
+
+2. Explain, in your own words, the difference between a CROSS JOIN, INNER JOIN, LEFT OUTER JOIN, RIGHT OUTER JOIN, and FULL OUTER JOIN. Give a real world example for each.
+A:  CROSS JOIN - Used to see all possible combinations between rows. This would be helpful if you wanted 		to see how many options you had off of a menu, for example, to see which option would be cheapest.
+	INNER JOIN - Is the default method of join, and used to connect two tables based on set conditions. You'd use this if you wanted to see any data from one table that wasn't in another.
+	LEFT OUTER JOIN - Results table will have every row from the first table and every matching row from the second table.
+	RIGHT OUTER JOIN - The opposite of LEFT OUTER JOIN.
+	
+	
+3. Define primary key and foreign key. Give a real world example for each.
+A: Primary Key - An ideentifier for each row in a given table. An example of this could be an ID of an individual.
+	Foreign Key - The primary key of one table that is included in another table. So this would be if the primary key of one table was employee ID, and the foreign key of the other table would be department ID, which is how you'd link the two tables.
+
+4. Define aliasing.
+A: Aliasing is shortening the table name in a schema to the first letter of the table name.
+
+5. Change this query so that you are using aliasing:
+SELECT professor.name, compensation.salary, compensation.vacation_days FROM professor JOIN compensation ON professor.id = compensation.professor_id;
+A: SELECT p.name, c.salary, c.vacation_days FROM professor JOIN compensation ON p.id = c.professor_id;
+
+6. Why would you use a NATURAL JOIN? Give a real world example.
+A: NATURAL JOIN is a shorthand use for USING. You could use NATURAL JOIN to have the ouput table have all common columns from the two tables instead of listing each column in the query.
+
+7. Build an Employees table and a Shifts table with appropriate primary and foreign keys. Then, write queries to find the following information:
+	-List all employees and all shifts.
+	employee_shift=# SELECT employees.employee, shifts.shift FROM employees JOIN shifts ON employees.id = shifts.shift_id;
+    employee     |   shift   
+-----------------+-----------
+ John Smith      | Monday
+ Sally Remar     | Tuesday
+ Bill Clinton    | Wednesday
+ Jackson Pollack | Thursday
+ George Bush     | Friday
+(5 rows)
+
+	-Create a list of all possible schedules.
+	employee_shift=# SELECT * FROM employees CROSS JOIN shifts;
+ id |    employee     | shift_id |   shift   
+----+-----------------+----------+-----------
+  1 | John Smith      |        1 | Monday
+  1 | John Smith      |        2 | Tuesday
+  1 | John Smith      |        3 | Wednesday
+  1 | John Smith      |        4 | Thursday
+  1 | John Smith      |        5 | Friday
+  2 | Sally Remar     |        1 | Monday
+  2 | Sally Remar     |        2 | Tuesday
+  2 | Sally Remar     |        3 | Wednesday
+  2 | Sally Remar     |        4 | Thursday
+  2 | Sally Remar     |        5 | Friday
+  3 | Bill Clinton    |        1 | Monday
+  3 | Bill Clinton    |        2 | Tuesday
+  3 | Bill Clinton    |        3 | Wednesday
+  3 | Bill Clinton    |        4 | Thursday
+  3 | Bill Clinton    |        5 | Friday
+  4 | Jackson Pollack |        1 | Monday
+  4 | Jackson Pollack |        2 | Tuesday
+  4 | Jackson Pollack |        3 | Wednesday
+  4 | Jackson Pollack |        4 | Thursday
+  4 | Jackson Pollack |        5 | Friday
+  5 | George Bush     |        1 | Monday
+
+8. Given the Dogs table (described below), the Adoptions table (described below), the Adopters table (which has the columns first_name, last_name, address, and phone number), and the Volunteers table (which has the columns id, name, address, phone_number, available_to_foster, and foster_id), please write queries to retrieve the following information.
+	-Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+	shelter=# SELECT volunteers.name, dogs.name FROM volunteers LEFT OUTER JOIN dogs ON volunteers.foster_id = dogs.id;
+     name      |  name  
+---------------+--------
+ Patti Smith   | Boujee
+ Tracy Jordan  | Rosco
+ Tina Fey      | 
+ Anna Kendrick | 
+ John Lithgow  | 
+(5 rows)
+
+
+	-List the adopter’s name and the pet’s name for each animal adopted within the past month to be displayed as a ‘Happy Tail’ on social media.
+	SELECT adopter, cat, dog, date FROM adoptions where date > 2017-11-01;
+	-Create a list of adopters who have not yet chosen a dog to adopt and generate all possible combinations of adopters and available dogs.
+	
+	-Display a list of all cats and all dogs who have not been adopted.
+	SELECT name FROM dogs WHERE in_foster != ' ';
+	SELECT name FROM cats WHERE adoption_date = ' ';
+	-Create a list of volunteers who are available to foster. If they currently are fostering a dog, include the dog. Also include all dogs who are not currently in foster homes.
+	
+9. Write a query to find the name of the person who adopted Seashell given the tables Cats (depicted below), Adoptions (depicted below), and Adopters which has columns for id, address, phone number, and name.
+SELECT adopter, cat FROM adoptions WHERE cat=Seashell;
+
+10. 
+	- To discern if the library should buy more copies of a given book, please provide the names and position, in order, of all of the patrons waiting in line for Harry Potter and the Sorcerer’s Stone.
+	SELECT patrons.name, holds.rank, books.title
+	FROM holds
+	JOIN books ON holds.isbn = books.isbn
+	JOIN patrons ON holds.id = patrons.id;
+	
+	-Make a list of all book titles and denote whether or not a copy of that book is checked out.
+	SELECT books.title, transactions.checked_out_date 
+	FROM books
+	JOIN transations ON books.isbn = transactions.isbn;
+	
+	-In an effort to learn which books take longer to read, the librarians would like you to create a list of total checked out time by book name in the past month.
+	SELECT books.title, SUM(transactions.checked_out_date - transations.checked_in_date)
+	FROM books
+	JOIN transactions ON books.isbn = transactions.isbn;
+	
+	-In order to learn which items should be retired, make a list of all books that have not been checked out in the past 5 years.
+	SELECT book.title, (transactions.checked_out_date < 2012-01-01);
+	FROM books
+	JOIN transactions ON books.isbn = transations.isbn;
+	
+	-List all of the library patrons. If they have one or more books checked out, correspond the books to the patrons.
+SELECT patrons.name, book.title, transactions.checked_out_date
+FROM transations
+JOIN transactions.isbn = books.isbn
+JOIN transactions.user_id = patrons.id;

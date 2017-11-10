@@ -1,0 +1,68 @@
+5.Write a command to make a new table to hold the books in a library with the columns ISBN, title, author, genre, publishing date, number of copies, and available copies.
+	CREATE TABLE books (
+	ISBN CHAR,
+	title TEXT,
+	author TEXT,
+	genre TEXT,
+	publishing_date DATE,
+	copies INTEGER,
+	available_copies INTEGER
+	);
+
+	-Find three books and add their information to the table.
+	
+	INSERT INTO books VALUES ('01-28-1006', 'The Red Tree', 'John Smith', 'mystery', 'January 8, 1999', 10, 5);
+	INSERT INTO books VALUES ('01-59-1006', 'The Blue Tree', 'John Smith', 'mystery', 'January 8, 2000', 10, 6);
+	INSERT INTO books VALUES ('01-350-1006', 'The Green Tree', 'John Smith', 'mystery', 'January 8, 2001', 10, 10);
+	
+	-Say that someone has just checked out one of the books. Change the available copies column to 1 less.
+	UPDATE books SET available_copies=9 WHERE title='The Green Tree';
+	
+	-Now one of the books has been added to the banned books list. Remove it from the table.
+	DELETE FROM books WHERE title='The Red Tree';
+	
+6. Write a command to make a new table to hold spacecrafts. Information should include id, name, year launched, country of origin, a brief description of the mission, orbiting body, if it is currently operating, and approximate miles from Earth.
+
+	CREATE TABLE spacecrafts (
+	id integer,
+	name text,
+	year_launched smallint,
+	country varchar(48),
+	mission_description text,
+	orbiting_body text,
+	operating boolean,
+	miles_from_Earth bigint
+	)
+	-Add 3 non-Earth-orbiting satellites to the table.
+	-Remove one of the satellites from the table since it has just been crashed into the planet.
+	DELETE FROM spacecrafts WHERE id=1;
+	
+	-Edit another satellite because it is no longer operating and change the value to reflect that.
+	UPDATE spacecrafts SET operating=false WHERE id=2;
+	
+	
+7. Write a command to make a new table to hold the emails in your inbox. This table should include an id, the subject line, the sender, any additional recipients, the body of the email, the timestamp, whether or not it’s been read, and the id of the email chain it’s in.
+	CREATE TABLE emails (
+	id integer,
+	subject varchar(25),
+	sender text,
+	recipient text,
+	email text,
+	date/time timestamp,
+	read? boolean,
+	chain_id integer
+	)
+
+	-Add 3 new emails to the inbox.
+	
+	INSERT INTO emails VALUES (20, 'hello', 'tom@gmail.com', 'sally@gmail.com, jim@gmail.com', 'received', '2009-05-20', true, 25);
+	INSERT INTO emails VALUES (21, 'hello again', 'tom@gmail.com', 'sally@gmail.com, jim@gmail.com', 'received again', '2009-05-22', true, 25);
+	INSERT INTO emails VALUES (54, 'work', 'jim@gmail.com', 'karen@gmail.com', 'I'll be out of work all week because I'm sick.', '2009-10-05', true, 1024);
+	
+	-You’ve just deleted one of the emails, so write a command to remove the row from the inbox table.
+	
+	DELETE FROM emails WHERE id=20;
+	
+	-You’ve just sent an email to the wrong person. Using the handy undo feature from your email provider, you quickly correct this and send it to the correct recipient. Write a command to reflect this change in the database.	
+	
+	UPDATE emails SET recipient='jack@gmail.com';
