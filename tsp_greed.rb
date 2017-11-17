@@ -5,8 +5,8 @@ def distance(currentCity, city)
 end
 
 def nearestNeighbor(graph_of_cities, route)
-	route = [currentCity]
-	until graph_of_cities[0].nil
+	route.push(city.name)
+	until graph_of_cities[0].nil?
 		nextCity = graph_of_cities[0]
 		graph_of_cities.each do |city|
 			if distance(currentCity, nextCity) > distance(currentCity, city)
