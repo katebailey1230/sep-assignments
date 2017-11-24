@@ -4,8 +4,8 @@ def distance(currentCity, city)
 	Math.hypot(city.x - currentCity.x, city.y - currentCity.y)
 end
 
-def nearestNeighbor(graph_of_cities, route)
-	route.push(city.name)
+def nearestNeighbor(graph_of_cities, currentCity)
+	route = [currentCity.name]
 	until graph_of_cities[0].nil?
 		nextCity = graph_of_cities[0]
 		graph_of_cities.each do |city|
