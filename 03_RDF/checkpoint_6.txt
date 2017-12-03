@@ -3,7 +3,7 @@ A: You can combine the tables using the JOIN clause as well as a table's primary
 
 2. Explain, in your own words, the difference between a CROSS JOIN, INNER JOIN, LEFT OUTER JOIN, RIGHT OUTER JOIN, and FULL OUTER JOIN. Give a real world example for each.
 A:  CROSS JOIN - Used to see all possible combinations between rows. This would be helpful if you wanted 		to see how many options you had off of a menu, for example, to see which option would be cheapest.
-	INNER JOIN - Is the default method of join, and used to connect two tables based on set conditions. You'd use this if you wanted to connect two tables together using values that match in each table.
+	INNER JOIN - Is the default method of join, and used to connect two tables based on set conditions. You'd use this if you wanted to see any data from one table that wasn't in another.
 	LEFT OUTER JOIN - Results table will have every row from the first table and every matching row from the second table.
 	RIGHT OUTER JOIN - The opposite of LEFT OUTER JOIN.
 	
@@ -17,7 +17,7 @@ A: Aliasing is shortening the table name in a schema to the first letter of the 
 
 5. Change this query so that you are using aliasing:
 SELECT professor.name, compensation.salary, compensation.vacation_days FROM professor JOIN compensation ON professor.id = compensation.professor_id;
-A: SELECT p.name, c.salary, c.vacation_days FROM professor as p JOIN compensation as c ON p.id = c.professor_id;
+A: SELECT p.name, c.salary, c.vacation_days FROM professor JOIN compensation ON p.id = c.professor_id;
 
 6. Why would you use a NATURAL JOIN? Give a real world example.
 A: NATURAL JOIN is a shorthand use for USING. You could use NATURAL JOIN to have the ouput table have all common columns from the two tables instead of listing each column in the query.
@@ -90,8 +90,7 @@ SELECT adopter, cat FROM adoptions WHERE cat=Seashell;
 	SELECT patrons.name, holds.rank, books.title
 	FROM holds
 	JOIN books ON holds.isbn = books.isbn
-	JOIN patrons ON holds.id = patrons.id
-	ORDER BY holds.date ASC;
+	JOIN patrons ON holds.id = patrons.id;
 	
 	-Make a list of all book titles and denote whether or not a copy of that book is checked out.
 	SELECT books.title, transactions.checked_out_date 
@@ -101,12 +100,11 @@ SELECT adopter, cat FROM adoptions WHERE cat=Seashell;
 	-In an effort to learn which books take longer to read, the librarians would like you to create a list of total checked out time by book name in the past month.
 	SELECT books.title, SUM(transactions.checked_out_date - transations.checked_in_date)
 	FROM books
-	JOIN transactions ON books.isbn = transactions.isbn
-	GROUP BY books.title;
+	JOIN transactions ON books.isbn = transactions.isbn;
 	
 	-In order to learn which items should be retired, make a list of all books that have not been checked out in the past 5 years.
-	SELECT book.title, transactions.checked_out_date 
-	FROM books WHERE (transactions.checked_out_date < 2012-01-01)
+	SELECT book.title, (transactions.checked_out_date < 2012-01-01);
+	FROM books
 	JOIN transactions ON books.isbn = transations.isbn;
 	
 	-List all of the library patrons. If they have one or more books checked out, correspond the books to the patrons.

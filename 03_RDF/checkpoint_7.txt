@@ -1,13 +1,10 @@
 1. Create a database for the model we built in the example. Create a SQL file that creates the tables and inserts sample data (the questions below will help you create the data). Write queries that demonstrate the following scenarios:
 	-Find a guest who exists in the database and has not booked a room.
-	hotel=# SELECT guest.name FROM guest INNER JOIN booking ON guest.name = booking.guest WHERE guest.name != booking.guest;
- name 
-------
-(0 rows)
-
-hotel=# SELECT guest.name FROM guest WHERE guest.name NOT IN (SELECT booking.guest FROM booking WHERE guest.name = booking.guest);
-
-Can't figure it out!
+	hotel=# SELECT guest.name, booking.check_in_date FROM guest LEFT OUTER JOIN booking ON (guest.name = booking.guest) WHERE booking.guest IS null;
+      name      | check_in_date 
+----------------+---------------
+ Sally Jennings | 
+(1 row)
 
 	-Find bookings for a guest who has booked two rooms for the same dates.
 	-Find bookings for a guest who has booked one room several times on different dates.
