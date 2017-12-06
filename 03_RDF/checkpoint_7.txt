@@ -7,11 +7,30 @@
 (1 row)
 
 	-Find bookings for a guest who has booked two rooms for the same dates.
+	
+	SELECT  count(b.check_in_date), b.guest FROM booking b GROUP BY b.guest HAVING count(b.check_in_date) = 2;
+ count |   guest    
+-------+------------
+     2 | John Smith
+(1 row)
+
+	
 	-Find bookings for a guest who has booked one room several times on different dates.
+	SELECT g.name, b.room, count( b.check_in_date) FROM booking b  LEFT OUTER JOIN guest g ON (g.name = b.guest) GROUP BY b.room, g.name HAVING count(DISTINCT check_in_date) > 1;
+    name     | room | count 
+-------------+------+-------
+ Al Einstein |  600 |     2
+(1 row)
+
 	-Count the number of unique guests who have booked the same room.
+	SELECT count(DISTINCT b.guest), b.room FROM booking b GROUP BY b.room; 
+ count | room 
+-------+------
+     2 |  300
+     1 |  350
+     1 |  400
+     3 |  600
+(4 rows)
 	
 2. Design a data model for students and the classes they have taken. The model should include the students' grades for a given class.
-	I'm thinking 3 tables: students, classes, and grades.
-	Students (ID integer, name text)
-	Classes (ID integer, name text)
-	Grades (Class ID integer, Student ID integer, Grade CHAR(1))
+	
