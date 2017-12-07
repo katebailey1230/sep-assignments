@@ -33,4 +33,69 @@
 (4 rows)
 	
 2. Design a data model for students and the classes they have taken. The model should include the students' grades for a given class.
+
+	-Find all students who have taken a particular class.
 	
+	school=# SELECT s.first_name, s.last_name, c.class_name 
+	FROM student s 
+	JOIN grades g 
+	ON (s.student_id = g.student_id) 
+	JOIN classes c 
+	ON (g.class_id = c.class_id) 
+	ORDER BY c.class_name;
+	
+ first_name | last_name |  class_name  
+------------+-----------+--------------
+ Vincent    | Vega      | gym
+ Butch      | Coolidge  | gym
+ Sally      | Jones     | intro_to_bio
+ Tina       | Roth      | intro_to_bio
+ Mia        | Wallace   | intro_to_bio
+ Ving       | Rhames    | intro_to_bio
+ Buddy      | Holly     | organic_chem
+ Claire     | Delaney   | organic_chem
+ Jules      | Winnfield | organic_chem
+ Steve      | Buscemi   | spanish1
+(10 rows)
+
+	
+	
+	-Count the number of each grade (using letter grades A-F) earned in a particular class.
+	
+	SELECT c.class_name, g.grade, count(g.grade) 
+	FROM grades g 
+	JOIN classes c 
+	ON (g.class_id = c.class_id) 
+	GROUP BY g.grade, c.class_name 
+	HAVING c.class_name = 'organic_chem';
+	
+  class_name  | grade | count 
+--------------+-------+-------
+ organic_chem | D     |     2
+ organic_chem | C     |     1
+(2 rows)
+
+	
+	-Find class names and the total number of students who have taken each class in the list.
+	
+	SELECT c.class_name, count(g.class_id) 
+	FROM grades g 
+	JOIN classes c ON (g.class_id = c.class_id) 
+	GROUP BY c.class_name;
+	
+  class_name  | count 
+--------------+-------
+ organic_chem |     3
+ spanish1     |     1
+ gym          |     2
+ intro_to_bio |     4
+(4 rows)
+
+	
+	-Find the class taken by the largest number of students.
+	
+	school=# SELECT c.class_name, count(g.class_id) FROM grades g JOIN classes c ON (g.class_id = c.class_id) GROUP BY c.class_name ORDER BY count(g.class_id) DESC LIMIT 1;
+  class_name  | count 
+--------------+-------
+ intro_to_bio |     4
+(1 row)
