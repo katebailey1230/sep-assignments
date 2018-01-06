@@ -1,0 +1,29 @@
+1. In your own words, explain the benefits of normalization. Include a real-world scenario where normalization is necessary.
+
+	1A: Normalization reduces redundancy by eliminating data duplicates, which in turn reduces errors, allows for more logical queries, and increases writing performance. A real world example of this could be how grocery stores track inventory, so if a grocery store's inventory tables were combined so that PLU (price look-up code), price of product in store, and product category were all in one table, it would make sense to split the table since the table is 1NF but could easily be 2NF since product category is not dependent on the price of product in store. One way to split this would be to have PLU and product category in one table, and PLU and price of product in another table.
+
+2. List and explain the different normal forms and how they relate to one another, with regard to your real-world scenario in the first question.
+
+	2A: There are four normal forms (counting denormalization as a process and not as a form): 1NF, 2NF, 3NF, and BCNF (Boyce Codd Normal Form). A table would not be 1NF if there were several values in one cell of a column in the table; for example, if the grocery store's table had multiple product categories per product such that the row for "apple" would have both product categories fruit and produce. To make the table 1F compliant, the table would need to be broken up so that only one value is in each cell. 
+
+	2NF means that a table must be 1NF as well as having all non-primary key attributes dependent on only the primary key attribute, such as the example in the answer to question 1. 3NF would require the table to be 2NF compliant as well as not having any transitive dependencies within the non-primary key attributes. An example of 3NF would be if the grocery store's initial table included the name of the product, so the table would have the name of product, PLU, price of product, and product category. Since the PLU is dependent on the name of the product, and the price is dependent on the PLU, this would not be 3NF compliant. The table would have to be broken up into two: one being name of product and PLU (and perhaps product category), and the other being PLU and price of product.
+
+	The Boyce Codd normal form (BCNF) is the most advanced version of the normal forms, and is different than 3NF in that all candidate keys must be a super key of their own table, meaning that each candidate key's values can uniquely identify all other attributes. The previous example of turning the table into 3NF also works as BCNF because the candidate keys, PLU and name of product, are super keys of their own table. 
+
+3. The student_records table below shows the students and their grades in different subjects. The table is already in first normal form (1NF). Convert this table to the third normal form (3NF) using the techniques you learned in this checkpoint.
+	
+	3A: Please see document(s) student_records_3NF
+	
+
+
+4. In your own words, explain the potential disadvantages of normalizing the data above. What are its trade-offs? Discuss this with your mentor.
+
+	4A: The disadvantages of normalizing the data to 3NF would be that program performance slows, and creating a SQL query would require many JOINs. However, by normalizing the data, you're increasing reading performance and decreasing redundancy.
+
+5. Looking at the tables you have normalized. If you need to denormalize to improve query performance or speed up reporting, how would you carry out denormalization for this database design? Discuss potential strategies with your mentor.
+
+	5A: Discuss?
+
+6. Discuss the trade-offs between data normalization and denormalization in this scenario with your mentor.
+
+	6a: Discuss?
