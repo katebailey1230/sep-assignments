@@ -1,0 +1,211 @@
+gt1. Explain a subquery in your own words.
+
+	1A: A subquery is simply a query within a query that is run first, or, to make an analogy, it would be like part of the math equation that's in parentheses that needs to be calculated first.
+	
+2. Where can you use a subquery within a SELECT statement?
+
+	2A: You can use a subquery in parentheses to the right of the initial SELECT statement.
+	
+3. When would you employ a subquery?
+
+	3A: You would use a subquery if you were looking for data from separate tables based on one or more conditions.
+	
+4. Explain a row constructor in your own words.
+
+	4A: A row constructor is a line of pre-defined data you're searching for in a subquery.
+	
+5. What happens if a row in the subquery result provides a NULL value to the comparison?
+
+	5A: If a row in a result provides a NULL value, then the result will return NULL instead of TRUE.
+	
+6. What are the ways to use a subquery within a WHERE clause?
+
+	6A: IN, NOT IN, EXISTS, NOT EXISTS, SOME, ANY, ALL
+	
+7. Build an employees table and a shifts table with appropriate primary and foreign keys. Then, write queries to find the following information:
+		-List all employees and all shifts.
+		
+		SELECT e.first_name, e.last_name, s.shift FROM employees AS e, shifts AS s WHERE e.employee_id = s.employee_id;
+		first_name | last_name |  shift  
+		------------+-----------+---------
+ 		Britta     | Perry     | Morning
+ 		Ben        | Chang     | Noon
+ 		Troy       | Barnes    | Night
+ 		Pierce     | Hawthorne | Morning
+ 		Shirley    | Bennet    | Noon
+ 		Abed       | Nadeer    | Night
+ 		Jeff       | Winger    | Noon
+		(7 rows)
+
+		-Create a list of all possible schedules.	
+		
+		SELECT e.first_name, e.last_name, s.shift FROM employees AS e, shifts AS s;
+		first_name | last_name |  shift  
+		------------+-----------+---------
+		Britta     | Perry     | Morning
+		Ben        | Chang     | Morning
+		Troy       | Barnes    | Morning
+		Pierce     | Hawthorne | Morning
+		Shirley    | Bennet    | Morning
+		Abed       | Nadeer    | Morning
+		Jeff       | Winger    | Morning
+		Britta     | Perry     | Noon
+		Ben        | Chang     | Noon
+		Troy       | Barnes    | Noon
+		Pierce     | Hawthorne | Noon
+		Shirley    | Bennet    | Noon
+		Abed       | Nadeer    | Noon
+		Jeff       | Winger    | Noon
+		Britta     | Perry     | Night
+		Ben        | Chang     | Night
+		Troy       | Barnes    | Night
+		Pierce     | Hawthorne | Night
+ 
+ 8. Given a dogs table, adoptions table, adopters table, and volunteers table , write queries to retrieve the following information. All tables are described below.
+ 
+ 	-Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+	SELECT * FROM volunteers;
+ id |     name      |    address    | phone_number | available_to_offer | foster_id 
+----+---------------+---------------+--------------+--------------------+-----------
+  1 | Patti Smith   | 100 South Ave | 555-0001     | Y                  |       293
+  2 | John Lithgow  | 3 Street      | 201-3666     | Y                  |       294
+  3 | Tina Fey      | 30 Rock       | 847-5299     | Y                  |       295
+  4 | Tracy Jordan  | 30 Rock       | 847-5299     | Y                  |       296
+  5 | Anna Kendrick | 203 Station   | 123-5648     | Y                  |       297
+(5 rows)
+
+	
+	-List the adopter’s name and the pet’s name for each animal adopted within the past month to be displayed as a ‘Happy Tail’ on social media.
+	
+	SELECT a.adopter, a.cat, a.dog FROM adoptions AS a WHERE a.date > '2017-07-01';
+  adopter   | cat  |  dog   
+------------+------+--------
+ John Smith | Azul | Lassie
+(1 row)
+	
+	-Create a list of adopters who have not yet chosen a dog to adopt and generate all possible combinations of adopters and available dogs.
+	SELECT a.adopter, d.name FROM adoptions AS a, dogs AS d WHERE a.dog IS NULL AND d.in_foster IS NULL;
+   adopter    |  name  
+--------------+--------
+ Barack Obama | Boujee
+ Barack Obama | Rosco
+(2 rows)
+	
+	-Display a list of all cats and all dogs who have not been adopted.
+	SELECT cats.name, cats.id FROM cats WHERE cats.adoption_date IS NULL;
+  name   | id 
+---------+----
+ Seasell |  2
+ Nala    |  5
+(2 rows)
+
+SELECT dogs.name, dogs.id FROM dogs WHERE dogs.in_foster IS NULL;
+  name  |  id   
+--------+-------
+ Boujee | 10001
+ Rosco  | 10007
+(2 rows)
+	
+	-Create a list of volunteers who are available to foster. If they currently are fostering a dog, include the dog. Also include all dogs who are not currently in foster homes.
+	SELECT name, available_to_offer FROM volunteers WHERE available_to_offer = 'Y';
+     name      | available_to_offer 
+---------------+--------------------
+ Patti Smith   | Y
+ John Lithgow  | Y
+ Tina Fey      | Y
+ Tracy Jordan  | Y
+ Anna Kendrick | Y
+(5 rows)
+
+
+9.
+
+	-To determine if the library should buy more copies of a given book, please provide the names and position, in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+	
+	SELECT p.name, h.rank, h.isbn FROM patrons AS p, holds AS h WHERE (p.id = h.patron_id) AND h.isbn IN (SELECT b.isbn FROM books AS b WHERE b.title = 'Advanced Potion-Making') ORDER BY h.rank;
+	  name | rank |       isbn |
+|----------------|------|------------|
+|     Terry Boot |    1 | 9136884926 |
+| Cedric Diggory |    2 | 9136884926 |
+        
+	
+	-Make a list of all book titles and denote whether or not a copy of that book is checked out.
+	
+	SELECT b.title, t.checked_out_date, t.checked_in_date FROM books AS b, transactions AS t WHERE (b.isbn = t.isbn) ORDER BY t.checked_in_date;
+
+   title | checked_out_date | checked_in_date |
+|-----------------------------------------|------------------|-----------------|
+|                     Hogwarts: A History |       2012-03-19 |      2012-03-20 |
+|                  Advanced Potion-Making |       2012-03-19 |      2012-03-20 |
+| Fantastic Beasts and Where to Find Them |       2012-03-19 |      2012-03-20 |
+| Fantastic Beasts and Where to Find Them |       2018-03-13 |      2018-03-16 |
+| Fantastic Beasts and Where to Find Them |       2018-03-17 |      2018-03-19 |
+|                  Advanced Potion-Making |       2018-03-17 |          (null) |
+| Fantastic Beasts and Where to Find Them |       2018-03-19 |          (null) |
+	
+	-In an effort to learn which books take longer to read, the librarians would like you to create a list of total checked out time by book name in the past month.
+	
+	SELECT b.title, AVG(t.checked_in_date - t.checked_out_date) FROM books AS b, transactions AS t WHERE (b.isbn = t.isbn) AND t.checked_in_date IS NOT NULL GROUP BY b.title;
+	|                                   title | avg |
+|-----------------------------------------|-----|
+| Fantastic Beasts and Where to Find Them |   2 |
+|                  Advanced Potion-Making |   1 |
+|                     Hogwarts: A History |   1 |
+        
+	-In order to learn which items should be retired, make a list of all books that have not been checked out in the past 5 years.
+	SELECT b.title, t.checked_out_date FROM books AS b, transactions AS t WHERE (b.isbn = t.isbn) AND t.checked_out_date < '2013-01-01';
+	|                                   title | checked_out_date |
+|-----------------------------------------|------------------|
+|                     Hogwarts: A History |       2012-03-19 |
+|                  Advanced Potion-Making |       2012-03-19 |
+| Fantastic Beasts and Where to Find Them |       2012-03-19 |
+	
+	-List all of the library patrons. If they have one or more books checked out, correspond the books to the patrons.
+SELECT DISTINCT p.name, b.title FROM patrons AS p, books AS b WHERE (b.isbn) IN (SELECT t.isbn FROM transactions AS t WHERE t.checked_in_date IS NULL);
+
+ name |                                   title |
+|------------------|-----------------------------------------|
+|   Cedric Diggory |                  Advanced Potion-Making |
+|   Cedric Diggory | Fantastic Beasts and Where to Find Them |
+|        Cho Chang |                  Advanced Potion-Making |
+|        Cho Chang | Fantastic Beasts and Where to Find Them |
+| Hermione Granger |                  Advanced Potion-Making |
+| Hermione Granger | Fantastic Beasts and Where to Find Them |
+|      Padma Patil |                  Advanced Potion-Making |
+|      Padma Patil | Fantastic Beasts and Where to Find Them |
+|       Terry Boot |                  Advanced Potion-Making |
+|       Terry Boot | Fantastic Beasts and Where to Find Them |
+
+*****Trouble with this one
+        
+	
+10. 
+-To determine the most profitable airplanes, find all airplane models where each flight has had over 100 paying customers in the past month.
+SELECT f.airplane_model FROM flights AS f WHERE (f.flight_number) IN (SELECT t.flight_number FROM transactions AS t WHERE t.seats_sold > 100);
+airplane_model 
+----------------
+ MD80
+ 767
+(2 rows)
+
+-To determine the most profitable flights, find all destination-origin pairs where 90% or more of the seats have been sold in the past month.
+SELECT f.origin, f.destination FROM flights AS f WHERE ((SELECT t.seats_sold FROM transactions AS t WHERE f.flight_number = t.flight_number) * 10 / (SELECT a.seat_capacity FROM airplane AS a WHERE a.model = f.airplane_model) > 6) ;
+ origin  | destination 
+---------+-------------
+ Chicago | Atlanta
+ Atlanta | Seattle
+(2 rows)
+
+*Floating point issue created a rounding issue so had to multiply by 10 
+
+The airline is looking to expand its presence in Asia and globally. Find the total revenue of any flight (not time restricted) arriving at or departing from Atlanta.
+
+SELECT SUM(t.total_revenue) FROM transactions AS t WHERE t.flight_number IN (SELECT f.flight_number FROM flights AS f WHERE f.origin = 'Atlanta' OR f.destination = 'Atlanta');
+  sum   
+--------
+ 800000
+(1 row)
+
+
+11. I think overall the joins from Checkpoint 6 were easier to read and write.
+
