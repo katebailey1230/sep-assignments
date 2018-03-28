@@ -12,9 +12,8 @@
 
 3. The student_records table below shows the students and their grades in different subjects. The table is already in first normal form (1NF). Convert this table to the third normal form (3NF) using the techniques you learned in this checkpoint.
 	
-	3A: Please see document(s) student_records_3NF
+	3A: Please see student_normalization.png for reference.
 	
-
 
 4. In your own words, explain the potential disadvantages of normalizing the data above. What are its trade-offs? Discuss this with your mentor.
 
@@ -22,8 +21,8 @@
 
 5. Looking at the tables you have normalized. If you need to denormalize to improve query performance or speed up reporting, how would you carry out denormalization for this database design? Discuss potential strategies with your mentor.
 
-	5A: Discuss?
+	5A: One option (see student_denormalized.png) would be to get rid of Table 1 in student_normalization.png and add the subject, professor_id and entry_id columns into the student table which would increase read performance.
 
 6. Discuss the trade-offs between data normalization and denormalization in this scenario with your mentor.
 
-	6a: Discuss?
+	6a: The disadvantages of normalizing the data to 3NF would be that program performance slows, and creating a SQL query would require many JOINs. However, by normalizing the data, you're increasing reading performance and decreasing redundancy.
